@@ -41,13 +41,30 @@
   .btn-hotspot:active{background:rgba(29,45,107,0.08);}
 
   /* --- CANVA IFRAME --- */
-  .canva-frame{
+  .after-open{
     display:none;
     position:fixed;inset:0;z-index:50;
-    width:100%;height:100%;
-    border:none;
+    background:#cdddee;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
   }
-  .canva-frame.active{display:block;}
+  .after-open.active{display:flex;}
+  .after-open p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.4rem;
+    color:#1d2d6b;
+    line-height:1.5;
+    margin-bottom:20px;
+  }
+  .after-open a{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;
+    color:#c2a14d;
+    text-decoration:underline;
+  }
 
   /* --- BOTÓN MÚSICA --- */
   .music-btn{
@@ -88,11 +105,11 @@
     </div>
   </div>
 
-  <!-- CANVA WEB -->
-  <iframe class="canva-frame" id="canvaFrame"
-    allow="autoplay; fullscreen"
-    allowfullscreen>
-  </iframe>
+  <!-- PANTALLA POST-APERTURA -->
+  <div class="after-open" id="afterOpen">
+    <p>La musica esta sonando.<br>Disfruta de la invitacion.</p>
+    <a href="https://invitacion-boda-sebastian-pamela.my.canva.site/boda" target="_blank">Volver a abrir la invitacion</a>
+  </div>
 
   <!-- BOTÓN PLAY/PAUSE -->
   <button class="music-btn" id="musicBtn" aria-label="Pausar música">🔊</button>
@@ -101,7 +118,7 @@
   const CANVA_URL = "https://invitacion-boda-sebastian-pamela.my.canva.site/boda";
   const audio = document.getElementById("musica");
   const cover = document.getElementById("cover");
-  const frame = document.getElementById("canvaFrame");
+  const afterOpen = document.getElementById("afterOpen");
   const musicBtn = document.getElementById("musicBtn");
   let playing = false;
 
@@ -115,9 +132,11 @@
       musicBtn.textContent = "🔊";
     }).catch(()=>{});
 
-    // Cargar Canva en iframe
-    frame.src = CANVA_URL;
-    frame.classList.add("active");
+    // Abrir Canva en nueva pestaña
+    window.open(CANVA_URL, "_blank");
+
+    // Mostrar pantalla de música
+    afterOpen.classList.add("active");
 
     // Ocultar portada
     cover.classList.add("hidden");
